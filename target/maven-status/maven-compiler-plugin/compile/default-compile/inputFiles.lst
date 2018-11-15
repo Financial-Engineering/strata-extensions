@@ -1,0 +1,14 @@
+/Users/rlewis/gitrepo/strata-extensions/src/main/java/com/opengamma/strata/product/fx/FxFlexibleForwardTrade.java
+/Users/rlewis/gitrepo/strata-extensions/src/main/java/com/opengamma/strata/measure/fx/FxFlexibleForwardCalculations.java
+/Users/rlewis/gitrepo/strata-extensions/src/main/java/com/opengamma/strata/basics/date/ExtendedHolidayCalendarIds.java
+/Users/rlewis/gitrepo/strata-extensions/src/main/java/com/opengamma/strata/product/fx/WindowDate.java
+/Users/rlewis/gitrepo/strata-extensions/src/main/java/com/opengamma/strata/product/fx/FxFlexibleForward.java
+/Users/rlewis/gitrepo/strata-extensions/src/main/java/com/opengamma/strata/pricer/fx/PriceToWorstFxFlexibleForwardTradePricer.java
+/Users/rlewis/gitrepo/strata-extensions/src/main/java/com/opengamma/strata/pricer/fx/PriceToWorstFxFlexibleForwardProductPricer.java
+/Users/rlewis/gitrepo/strata-extensions/src/main/java/com/opengamma/strata/product/fx/ResolvedFxFlexibleForwardTrade.java
+/Users/rlewis/gitrepo/strata-extensions/src/main/java/com/opengamma/strata/product/fx/type/ExtendedFxSwapConventions.java
+/Users/rlewis/gitrepo/strata-extensions/src/main/java/com/opengamma/strata/calc/ExtendedMeasures.java
+/Users/rlewis/gitrepo/strata-extensions/src/main/java/com/opengamma/strata/measure/fx/FxSingleTradeForwardPointsFunction.java
+/Users/rlewis/gitrepo/strata-extensions/src/main/java/com/opengamma/strata/measure/fx/FxFlexibleForwardTradeCalculationFunction.java
+/Users/rlewis/gitrepo/strata-extensions/src/main/java/com/opengamma/strata/product/fx/ResolvedFxFlexibleForward.java
+/Users/rlewis/gitrepo/strata-extensions/src/main/java/com/opengamma/strata/measure/fx/FxFlexibleForwardMeasureCalculations.java

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.derivativepath</groupId>
+	<artifactId>strata-extensions</artifactId>
+	<packaging>jar</packaging>
+	<name>Open Gamma Strata Extensions</name>
+	<description>Product and pricer extensions</description>
+
+	<parent>
+		<groupId>com.opengamma.strata</groupId>
+		<artifactId>strata-parent</artifactId>
+		<version>2.1.2</version>
+		<relativePath />
+	</parent>
+
+	<properties>
+		<vavr.version>0.9.2</vavr.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.opengamma.strata</groupId>
+			<artifactId>strata-basics</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.opengamma.strata</groupId>
+			<artifactId>strata-product</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.opengamma.strata</groupId>
+			<artifactId>strata-calc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.opengamma.strata</groupId>
+			<artifactId>strata-loader</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.opengamma.strata</groupId>
+			<artifactId>strata-market</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.opengamma.strata</groupId>
+			<artifactId>strata-measure</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.vavr</groupId>
+			<artifactId>vavr</artifactId>
+			<version>${vavr.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>5.1.2.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>run-checkstyle</id>
+						<phase>none</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
+										<artifactId>
+											maven-checkstyle-plugin
+										</artifactId>
+										<versionRange>
+											[2.17,)
+										</versionRange>
+										<goals>
+											<goal>checkstyle</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>joda-beans-eclipse</id>
+			<activation>
+				<property>
+					<name>eclipse.buildId</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.joda</groupId>
+						<artifactId>joda-beans-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+								<configuration>
+									<eclipse>true</eclipse>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>
