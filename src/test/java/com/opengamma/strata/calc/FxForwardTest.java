@@ -1,7 +1,6 @@
 package com.opengamma.strata.calc;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.FileReader;
@@ -11,6 +10,7 @@ import java.time.LocalTime;
 import java.time.Period;
 
 import org.joda.beans.ser.JodaBeanSer;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,13 +44,13 @@ import io.vavr.control.Try;
 
 public class FxForwardTest {
 	private static final Logger LOG = LoggerFactory.getLogger(FxForwardTest.class);
-	
+
 	private static final double EPSILON = 1.E-15;
-	
+
 	private static final ReferenceData REF_DATA = ReferenceData.standard();
 
 	private static final LocalDate VAL_DATE = LocalDate.of(2018, 7, 30);
-	
+
 	private static final CurrencyPair GBP_USD = CurrencyPair.of(Currency.GBP, Currency.USD);
 	private static final CurrencyPair USD_CAD = CurrencyPair.of(Currency.USD, Currency.CAD);
 	private static final FxSingleTrade USD_CAD_FWD_6M = createFxForward(USD_CAD, 100000, 0.76, VAL_DATE,
@@ -86,8 +86,9 @@ public class FxForwardTest {
 	}
 
 	public final Try<CalculationRules> getRules() {
-		CalculationFunctions functions = StandardComponents.calculationFunctions().composedWith(CalculationFunctions
-				.of(new FxFlexibleForwardTradeCalculationFunction(), new FxSingleTradeForwardPointsFunction()));
+		CalculationFunctions functions = StandardComponents.calculationFunctions()
+				.composedWith(CalculationFunctions.of(new FxFlexibleForwardTradeCalculationFunction()))
+				.composedWith(new FxSingleTradeForwardPointsFunction());
 
 		return getCurveGroupDefinition().map(def -> CalculationRules.of(functions, RatesMarketDataLookup.of(def)));
 
@@ -116,21 +117,24 @@ public class FxForwardTest {
 
 	@Test
 	public void testFxForward() {
-		Try<Results> results = price(List.of(USD_CAD_FWD_6M), List.of(Measures.PRESENT_VALUE, Measures.FORWARD_FX_RATE));
+		Try<Results> results = price(List.of(USD_CAD_FWD_6M),
+				List.of(Measures.PRESENT_VALUE, Measures.FORWARD_FX_RATE));
 
 		Try<CurrencyAmount> npv = results.map(r -> r.get(0, 0)).map(r -> (CurrencyAmount) r.getValue());
 		Try<FxRate> fwdRate = results.map(r -> r.get(0, 1)).map(r -> (FxRate) r.getValue());
 
-		npv.onFailure(t -> fail(t.getMessage())).onSuccess(v -> assertEquals(v.getAmount(), -53966.34033830941, EPSILON));
-		fwdRate.onFailure(t -> fail(t.getMessage())).onSuccess(r -> assertEquals(r.fxRate(r.getPair()), 1.298282658708429, EPSILON));
+		npv.onFailure(t -> fail(t.getMessage()))
+				.onSuccess(v -> assertEquals(v.getAmount(), -53966.34033830941, EPSILON));
+		fwdRate.onFailure(t -> fail(t.getMessage()))
+				.onSuccess(r -> assertEquals(r.fxRate(r.getPair()), 1.298282658708429, EPSILON));
 	}
-	
+
 	@Test
 	public void testFxForwardCustom() {
 		Try<Results> results = price(List.of(USD_CAD_FWD_6M), List.of(ExtendedMeasures.FX_SWAP_RATE));
 
 		Try<Double> fwdPts = results.map(r -> r.get(0, 0)).map(r -> (Double) r.getValue());
 
-		fwdPts.onFailure(t -> fail(t.getMessage())).onSuccess(v -> assertEquals(v, 1.298282658708429, EPSILON));
+		fwdPts.onFailure(t -> fail(t.getMessage())).onSuccess(v -> assertEquals(-0.004167341291570814, v, EPSILON));
 	}
 }
